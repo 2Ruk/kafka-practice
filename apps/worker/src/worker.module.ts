@@ -1,9 +1,24 @@
 import { Module } from '@nestjs/common';
 import { WorkerController } from './worker.controller';
 import { WorkerService } from './worker.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { logLevel } from '@nestjs/microservices/external/kafka.interface';
 
 @Module({
-  imports: [],
+  imports: [
+    ClientsModule.register([
+      {
+        name: 'PRODUCER',
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            brokers: ['localhost:9092'],
+            logLevel: logLevel.DEBUG,
+          },
+        },
+      },
+    ]),
+  ],
   controllers: [WorkerController],
   providers: [WorkerService],
 })

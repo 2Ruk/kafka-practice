@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class WorkerService {
-  getHello(): string {
+  constructor(
+    @Inject('PRODUCER') private readonly producerClient: ClientKafka,
+  ) {}
+  async getHello(): Promise<string> {
+    this.producerClient.emit('hello', { value: 'Hello Kafka!' });
     return 'Hello World!';
   }
 }
