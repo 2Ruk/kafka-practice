@@ -18,8 +18,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/*": [
-        "src/app/*"
+      "@apps/*": [
+        "src/apps/*"
       ],
       "@app/library": [
         "libs/library/src"
