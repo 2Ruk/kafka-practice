@@ -7,6 +7,7 @@ export class WorkerService {
     @Inject('PRODUCER') private readonly producerClient: ClientKafka,
   ) {}
   async getHello(): Promise<string> {
+    this.producerClient.emit('EXCEL', { value: 'Hello Kafka!' });
     this.producerClient.emit('hello', { value: 'Hello Kafka!' });
     return 'Hello World!';
   }
